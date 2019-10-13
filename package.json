@@ -1,0 +1,77 @@
+{
+  "version": "0.0.0",
+  "name": "@cn-shell/storage-engine",
+  "description": "A Cloud Native Shell extension for stoarge engine using LevelDB",
+  "main": "./dist/main.js",
+  "bin": "",
+  "files": [
+    "dist/**/*"
+  ],
+  "lint-staged": {
+    "**/*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.{json,md,yaml}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "prettier": {
+    "trailingComma": "all"
+  },
+  "scripts": {
+    "build": "tsc",
+    "format-ts": "prettier --write 'src/**/*.ts'",
+    "format-js": "prettier --write 'dist/**/*.{js,ts}'",
+    "format-misc": "prettier --write '**/*.{json,md,yaml}'",
+    "install-bin": "npm install -g $(npm pack . | tail -1)",
+    "test": "echo \"No tests\" && exit 0",
+    "clean": "rm -rf ./dist",
+    "prepare": "npm run clean && npm run format-ts && npm run format-misc && tsc",
+    "prepublishOnly": "npm run format-js && npm test"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "keywords": [
+    "Cloud",
+    "Native ",
+    "Application",
+    "Shell",
+    "Extension",
+    "LevelDB"
+  ],
+  "author": "Black Eye Technology",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^3.0.9",
+    "lint-staged": "^9.2.5",
+    "prettier": "^1.18.2",
+    "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "@cn-shell/influxdb": "^1.2.5",
+    "@types/leveldown": "^4.0.0",
+    "@types/levelup": "^3.1.1",
+    "@types/node": "^12.7.3",
+    "@types/rocksdb": "^3.0.0",
+    "cn-shell": "^2.3.7",
+    "leveldown": "^5.3.0",
+    "levelup": "^4.3.2",
+    "rocksdb": "^4.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blackeyetech/cns-level-db.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blackeyetech/cns-level-db/issues"
+  },
+  "homepage": "https://github.com/blackeyetech/cns-level-db#readme"
+}
