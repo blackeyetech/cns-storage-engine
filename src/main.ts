@@ -17,9 +17,7 @@ const CFG_KEEP_OPEN_INTERVAL = "KEEP_OPEN_INTERVAL";
 const DEFAULT_CFG_KEEP_OPEN_INTERVAL = "0";
 
 // Route consts here:
-const ROUTE_CREATE = "/write";
-const ROUTE_READ = "/read";
-const ROUTE_DELETE = "/delete";
+const ROUTE_DATA = "/data";
 
 // Class CNStorageEngine here
 export class CNStorageEngine extends CNShell {
@@ -96,7 +94,7 @@ export class CNStorageEngine extends CNShell {
   }
 
   private setupCreateRoute() {
-    this.createRoute(ROUTE_CREATE, async body => {
+    this.createRoute(ROUTE_DATA, async body => {
       if (
         body.name === undefined ||
         body.key === undefined ||
@@ -121,7 +119,7 @@ export class CNStorageEngine extends CNShell {
   }
 
   private setupReadRoute() {
-    this.simpleReadRoute(ROUTE_READ, async id => {
+    this.simpleReadRoute(ROUTE_DATA, async id => {
       if (id === undefined) {
         let error: HttpError = { status: 404, message: "No ID specified!" };
         throw error;
@@ -150,7 +148,7 @@ export class CNStorageEngine extends CNShell {
   }
 
   private setupDeleteRoute() {
-    this.deleteRoute(ROUTE_DELETE, async id => {
+    this.deleteRoute(ROUTE_DATA, async id => {
       if (id === undefined) {
         let error: HttpError = { status: 404, message: "Invalid ID!" };
         throw error;
