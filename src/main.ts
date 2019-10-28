@@ -19,6 +19,8 @@ const DEFAULT_CFG_KEEP_OPEN_INTERVAL = "0";
 // Route consts here:
 const ROUTE_DATA = "/data";
 
+const QRY_STRING_STORE = "store";
+
 // Class CNStorageEngine here
 export class CNStorageEngine extends CNShell {
   // Properties here
@@ -45,7 +47,6 @@ export class CNStorageEngine extends CNShell {
 
     this.setupCreateRoute();
     this.setupReadRoute();
-    this.setupDeleteRoute();
   }
 
   // Methods here
@@ -114,26 +115,23 @@ export class CNStorageEngine extends CNShell {
         throw error;
       }
 
-      return `${body.name}:${body.key}`;
+      return body.key;
     });
   }
 
   private setupReadRoute() {
-    this.simpleReadRoute(ROUTE_DATA, async id => {
+    this.simpleReadRoute(ROUTE_DATA, async (id, query) => {
       if (id === undefined) {
         let error: HttpError = { status: 404, message: "No ID specified!" };
         throw error;
       }
 
-      // id format is {storage name}:{key}
-      let parts = id.split(":");
-
-      if (parts[0] === undefined || parts[1] === undefined) {
-        let error: HttpError = { status: 404, message: "Invalid ID!" };
+      if (query === undefined || query[QRY_STRING_STORE] === undefined) {
+        let error: HttpError = { status: 404, message: "No store specified!" };
         throw error;
       }
 
-      let value = await this.get(parts[0], parts[1]);
+      let value = await this.get(query[QRY_STRING_STORE], id);
 
       if (value === null) {
         let error: HttpError = {
@@ -144,33 +142,6 @@ export class CNStorageEngine extends CNShell {
       }
 
       return value;
-    });
-  }
-
-  private setupDeleteRoute() {
-    this.deleteRoute(ROUTE_DATA, async id => {
-      if (id === undefined) {
-        let error: HttpError = { status: 404, message: "Invalid ID!" };
-        throw error;
-      }
-
-      // id format is {storage name}:{key}
-      let parts = id.split(":");
-
-      if (parts[0] === undefined || parts[1] === undefined) {
-        let error: HttpError = { status: 404, message: "Invalid ID" };
-        throw error;
-      }
-
-      let deleted = await this.del(parts[0], parts[1]);
-
-      if (deleted === false) {
-        let error: HttpError = {
-          status: 500,
-          message: "Ooops - we have had a problem",
-        };
-        throw error;
-      }
     });
   }
 
