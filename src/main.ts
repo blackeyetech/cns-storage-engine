@@ -127,11 +127,21 @@ export class CNStorageEngine extends CNShell {
       }
 
       if (query === undefined || query[QRY_STRING_STORE] === undefined) {
-        let error: HttpError = { status: 404, message: "No store specified!" };
+        let error: HttpError = { status: 400, message: "No store specified!" };
         throw error;
       }
 
-      let value = await this.get(query[QRY_STRING_STORE], id);
+      if (Array.isArray(query[QRY_STRING_STORE])) {
+        let error: HttpError = {
+          status: 400,
+          message: "Can only specify one store!",
+        };
+        throw error;
+      }
+
+      // We know this is a string because we checked if it was an arrray above
+      let name = <string>query[QRY_STRING_STORE];
+      let value = await this.get(name, id);
 
       if (value === null) {
         let error: HttpError = {
