@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.2.1",
   "name": "@cn-shell/storage-engine",
   "description": "A Cloud Native Shell extension for stoarge engine using LevelDB",
   "main": "./dist/main.js",
