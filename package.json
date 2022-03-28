@@ -50,20 +50,18 @@
   "author": "Black Eye Technology",
   "license": "MIT",
   "devDependencies": {
-    "husky": "^3.0.9",
-    "lint-staged": "^9.2.5",
-    "prettier": "^1.18.2",
-    "typescript": "^3.6.2"
+    "husky": "^3.1.0",
+    "lint-staged": "^12.3.7",
+    "prettier": "^1.19.1",
+    "typescript": "^3.9.10"
   },
   "dependencies": {
-    "@cn-shell/influxdb": "^1.2.5",
-    "@types/leveldown": "^4.0.0",
+    "@types/leveldown": "^4.0.3",
     "@types/levelup": "^3.1.1",
-    "@types/node": "^12.7.3",
-    "@types/rocksdb": "^3.0.0",
-    "cn-shell": "^2.3.7",
-    "leveldown": "^5.3.0",
-    "levelup": "^4.3.2"
+    "@types/node": "^12.20.47",
+    "cn-shell": "^2.26.0",
+    "leveldown": "^5.6.0",
+    "levelup": "^4.4.0"
   },
   "repository": {
     "type": "git",
