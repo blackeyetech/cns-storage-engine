@@ -51,7 +51,7 @@
   "license": "MIT",
   "devDependencies": {
     "husky": "^3.1.0",
-    "lint-staged": "^12.3.7",
+    "lint-staged": "^13.2.1",
     "prettier": "^1.19.1",
     "typescript": "^3.9.10"
   },
